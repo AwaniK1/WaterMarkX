@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#004D47"/>
+      <stop offset="100%" stop-color="#006C62"/>
+    </linearGradient>
+
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#008060"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+
+    <linearGradient id="dropGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#008060"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 0)">
+    <!-- Letter W (Outer Left) -->
+    <path d="M 30 20 L 95 20 L 160 210 L 105 210 Z" fill="url(#tealGrad)"/>
+    
+    <!-- Letter W (Inner Left to Teardrop base) -->
+    <path d="M 100 210 L 155 210 L 210 60 L 165 60 Z" fill="url(#emeraldGrad)"/>
+    
+    <!-- Letter W (Right Leg attached to Teardrop base) -->
+    <path d="M 205 60 L 255 60 L 305 210 L 250 210 Z" fill="url(#tealGrad)"/>
+
+    <!-- Water Drop Centerpiece -->
+    <path d="M 235 15 C 235 15 290 95 290 145 C 290 180 265 205 235 205 C 205 205 180 180 180 145 C 180 95 235 15 235 15 Z" fill="url(#dropGrad)"/>
+
+    <!-- Fingerprint Icon inside Drop -->
+    <g stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round">
+      <path d="M 235 160 A 10 15 0 0 1 235 130 A 10 15 0 0 1 235 160"/>
+      <path d="M 235 172 A 18 23 0 0 1 217 148 A 18 23 0 0 1 250 136"/>
+      <path d="M 222 182 A 26 31 0 0 1 208 148 A 26 31 0 0 1 262 132"/>
+    </g>
+
+    <!-- Letter X (Left Diagonal) -->
+    <path d="M 290 20 L 355 20 L 470 210 L 405 210 Z" fill="url(#tealGrad)"/>
+
+    <!-- Letter X (Right Diagonal) -->
+    <path d="M 405 20 L 470 20 L 355 210 L 290 210 Z" fill="url(#emeraldGrad)"/>
+  </g>
+</svg>
