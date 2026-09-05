@@ -1,0 +1,4 @@
+torch
+accelerate
+sentencepiece
+transformers==5.15.1
