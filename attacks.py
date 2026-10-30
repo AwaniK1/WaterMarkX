@@ -480,6 +480,8 @@ class AttackRecord:
     attacked_prediction: bool | None
     attacked_green_fraction: float | None
     attacked_tokens_scored: int
+    # meaning kept (cosine similarity, ~1 = same meaning); None if not computed
+    semantic_similarity: float | None
     # verdict + problems
     outcome: str
     warnings: str
@@ -509,9 +511,11 @@ def decide_outcome(orig: dict, attacked: dict | None, attack_error: str | None) 
     return OUTCOME_SURVIVED if attacked["is_watermarked"] else OUTCOME_REMOVED
 
 
-def evaluate_attack(text: str, attack_type: str, engine: Engine, **params) -> AttackRecord:
+def evaluate_attack(text: str, attack_type: str, engine: Engine,
+                    compute_similarity: bool = True, **params) -> AttackRecord:
     """Detect -> attack -> detect again, and return one AttackRecord.
-    Never raises for attack failures: they are recorded in the `error` field."""
+    Never raises for attack failures: they are recorded in the `error` field.
+    compute_similarity=True also measures how much meaning was kept."""
     warnings: list[str] = []
 
     orig = detect_text(text, engine)
@@ -539,6 +543,14 @@ def evaluate_attack(text: str, attack_type: str, engine: Engine, **params) -> At
         if attacked["warning"]:
             warnings.append(f"attacked: {attacked['warning']}")
 
+    similarity = None
+    if compute_similarity and attacked_text:
+        try:
+            from similarity import semantic_similarity
+            similarity = semantic_similarity(text, attacked_text)
+        except Exception as exc:  # missing package / model: record, don't hide
+            warnings.append(f"similarity not computed: {type(exc).__name__}: {exc}")
+
     def g(d, key):
         return d[key] if d else None
 
@@ -558,21 +570,49 @@ def evaluate_attack(text: str, attack_type: str, engine: Engine, **params) -> At
         attacked_prediction=g(attacked, "is_watermarked"),
         attacked_green_fraction=g(attacked, "green_fraction"),
         attacked_tokens_scored=g(attacked, "num_tokens_scored") or 0,
+        semantic_similarity=similarity,
         outcome=decide_outcome(orig, attacked, attack_error),
         warnings="; ".join(warnings),
         error=attack_error,
     )
 
 
-def append_records_to_csv(records: list[AttackRecord], path: str) -> None:
-    """Append records to a CSV file (writes the header if the file is new)."""
-    if not records:
+def append_rows_csv(rows: list[dict], path: str) -> None:
+    """
+    Append dict rows to a CSV file, writing the header if the file is new.
+
+    If the file was written by an older version with fewer columns (e.g.
+    before semantic_similarity existed), it is rewritten once with the new
+    header; old rows get empty values for the new columns. No data is lost.
+    """
+    if not rows:
         return
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    rows = [r.to_row() for r in records]
+    fields = list(rows[0].keys())
+
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            old_fields = list(reader.fieldnames or [])
+            old_rows = list(reader)
+        if set(fields) <= set(old_fields):
+            fields = old_fields  # existing file already has every column
+        else:
+            # New columns appeared: rewrite the file once with the merged header.
+            fields = old_fields + [c for c in fields if c not in old_fields]
+            with open(path, "w", newline="", encoding="utf-8") as out:
+                w = csv.DictWriter(out, fieldnames=fields, restval="")
+                w.writeheader()
+                w.writerows(old_rows)
+
     new_file = not os.path.exists(path)
     with open(path, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(f, fieldnames=fields, restval="")
         if new_file:
             writer.writeheader()
         writer.writerows(rows)
+
+
+def append_records_to_csv(records: list[AttackRecord], path: str) -> None:
+    """Append AttackRecords to a CSV file."""
+    append_rows_csv([r.to_row() for r in records], path)

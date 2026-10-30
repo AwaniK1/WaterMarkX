@@ -9,6 +9,7 @@ Creates in the output folder:
     z_score_before_after.png      mean z-score before vs after each attack
     green_fraction_before_after.png
     detection_rate_after.png      share of samples still detected after each attack
+    meaning_similarity.png        how much meaning each attack keeps
     attack_summary.csv            the numbers behind the charts
 
 Only samples whose ORIGINAL text was detected are used ("comparable"
@@ -171,6 +172,32 @@ def chart_detection_rate(summary, path, n_note) -> None:
     plt.close(fig)
 
 
+def chart_similarity(summary, path) -> None:
+    """Horizontal bars: mean meaning similarity (original vs attacked text)."""
+    rows = [s for s in summary if s.get("mean_similarity") is not None]
+    if not rows:
+        return
+    fig, ax = plt.subplots(figsize=(8, 1.2 + 0.55 * len(rows)))
+    fig.subplots_adjust(left=0.25, right=0.95, top=0.72, bottom=0.18)
+    _style_axes(ax)
+
+    y = list(range(len(rows)))[::-1]
+    values = [s["mean_similarity"] for s in rows]
+    ax.barh(y, values, height=0.45, color=BEFORE_COLOR, zorder=2)
+    for yi, v in zip(y, values):
+        ax.annotate(f"{v:.2f}", (v, yi), xytext=(6, 0), textcoords="offset points",
+                    va="center", fontsize=9, color=INK_PRIMARY)
+    ax.axvline(0, color=BASELINE, linewidth=1)
+    ax.set_xlim(0, 1.1)
+    ax.set_ylim(-0.6, len(rows) - 0.4)
+    ax.set_yticks(y, [f"{s['attack_type'].capitalize()}  (n={s['n_similarity']})" for s in rows])
+    ax.set_xlabel("Cosine similarity to the original (1.0 = same meaning)")
+    _titles(fig, "How much meaning each attack keeps",
+            "Sentence-embedding similarity (all-MiniLM-L6-v2), original vs attacked text.")
+    fig.savefig(path, dpi=200)
+    plt.close(fig)
+
+
 def chart_baseline_z(dataset_rows: list[dict], path: str) -> None:
     """Phase 1 chart: every text's z-score, normal vs watermarked, no attack.
     One dot per text, so the spread (not just the mean) is visible."""
@@ -232,6 +259,7 @@ def make_all_charts(csv_path: str, out_dir: str) -> list[dict]:
     chart_z_scores(summary, os.path.join(out_dir, "z_score_before_after.png"), n_note)
     chart_green_fraction(summary, os.path.join(out_dir, "green_fraction_before_after.png"), n_note)
     chart_detection_rate(summary, os.path.join(out_dir, "detection_rate_after.png"), n_note)
+    chart_similarity(summary, os.path.join(out_dir, "meaning_similarity.png"))
     return summary
 
 

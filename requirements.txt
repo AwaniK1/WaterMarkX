@@ -36,9 +36,11 @@ regex==2026.9.3
 rich==15.0.0
 safetensors==0.8.0
 sentencepiece==0.2.2
+sentence-transformers==6.2.0
 setuptools==84.0.0
 shellingham==1.5.4
 starlette==1.6.0
+streamlit==1.66.1
 sympy==1.14.0
 tokenizers==0.22.2
 torch==2.14.0

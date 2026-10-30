@@ -78,13 +78,8 @@ def read_csv(path: str) -> list[dict]:
 
 def append_row(row: dict, path: str) -> None:
     """Append one row immediately, so progress survives a crash or Ctrl+C."""
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    new_file = not os.path.exists(path)
-    with open(path, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(row.keys()))
-        if new_file:
-            writer.writeheader()
-        writer.writerow(row)
+    from attacks import append_rows_csv
+    append_rows_csv([row], path)
 
 
 def latest_rows(rows: list[dict], key_fields: tuple[str, ...]) -> list[dict]:
@@ -267,12 +262,15 @@ def summary() -> None:
             w.writeheader()
             w.writerows(attack_rows)
         print("\nATTACKS (only samples detected before the attack are comparable)")
-        print(f"{'attack':<12}{'n':>4}{'comparable':>12}{'z before':>10}{'z after':>9}{'still detected':>16}{'failed':>8}")
+        print(f"{'attack':<12}{'n':>4}{'comparable':>12}{'z before':>10}{'z after':>9}"
+              f"{'still detected':>16}{'meaning':>9}{'failed':>8}")
         for s in make_all_charts(tmp, CHART_DIR):
             fmt = lambda v: "n/a" if v is None else f"{v:.2f}"
             rate = "n/a" if s["detection_rate_after"] is None else f"{s['detection_rate_after']:.0%}"
             print(f"{s['attack_type']:<12}{s['n_samples']:>4}{s['n_comparable']:>12}"
-                  f"{fmt(s['mean_z_before']):>10}{fmt(s['mean_z_after']):>9}{rate:>16}{s['n_failed']:>8}")
+                  f"{fmt(s['mean_z_before']):>10}{fmt(s['mean_z_after']):>9}{rate:>16}"
+                  f"{fmt(s['mean_similarity']):>9}{s['n_failed']:>8}")
+        print("  meaning = mean similarity to the original (1.0 = same meaning)")
         os.remove(tmp)
     else:
         print("\nNo attack results yet. Run 'attack' next.")

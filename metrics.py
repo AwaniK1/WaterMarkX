@@ -75,6 +75,9 @@ def summarize(rows: list[dict]) -> list[dict]:
             "mean_z_drop": (z_before - z_after) if comparable else None,
             "mean_green_before": _mean([_float(r["original_green_fraction"]) for r in comparable]),
             "mean_green_after": _mean([_float(r["attacked_green_fraction"]) for r in comparable]),
+            # Meaning kept, over every sample the attack ran on (not only comparable).
+            "mean_similarity": _mean([_float(r.get("semantic_similarity", "")) for r in ok]),
+            "n_similarity": sum(_float(r.get("semantic_similarity", "")) is not None for r in ok),
         })
     return summary
 

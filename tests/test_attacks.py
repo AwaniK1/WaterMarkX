@@ -386,3 +386,48 @@ def test_every_attack_returns_string_or_clear_error(monkeypatch):
         assert isinstance(out.text, str) and out.text.strip()
         with pytest.raises(AttackError):
             apply_attack("", name, make_engine(), **p)
+
+
+# ------------------------------------------------------------------
+# Semantic similarity + CSV schema changes
+# ------------------------------------------------------------------
+import similarity
+
+
+def test_similarity_is_recorded():
+    rec = evaluate_attack(WATERMARKED, "paraphrase", make_engine())
+    assert rec.semantic_similarity == 0.9  # faked in conftest.py
+
+
+def test_similarity_failure_is_a_warning_not_a_crash(monkeypatch):
+    def broken(a, b):
+        raise ImportError("sentence-transformers not installed")
+    monkeypatch.setattr(similarity, "semantic_similarity", broken)
+    rec = evaluate_attack(WATERMARKED, "paraphrase", make_engine())
+    assert rec.semantic_similarity is None
+    assert "similarity not computed" in rec.warnings
+    assert rec.outcome == attacks.OUTCOME_REMOVED  # detection result unaffected
+
+
+def test_similarity_skipped_when_attack_failed():
+    rec = evaluate_attack(WATERMARKED, "paraphrase", make_engine(z_scores=(5.0,), fail=True))
+    assert rec.semantic_similarity is None
+
+
+def test_similarity_rejects_empty_text():
+    import importlib
+    real = importlib.reload(similarity)  # undo the fake for this check
+    with pytest.raises(ValueError):
+        real.semantic_similarity("", "text")
+
+
+def test_csv_gains_new_columns_without_losing_rows(tmp_path):
+    from attacks import append_rows_csv
+    path = str(tmp_path / "r.csv")
+    append_rows_csv([{"a": 1, "b": 2}], path)            # old format
+    append_rows_csv([{"a": 3, "b": 4, "c": 5}], path)    # new column added
+    append_rows_csv([{"a": 6, "b": 7}], path)            # old format again
+    with open(path, encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert [r["a"] for r in rows] == ["1", "3", "6"]
+    assert [r["c"] for r in rows] == ["", "5", ""]

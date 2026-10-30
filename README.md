@@ -17,8 +17,15 @@ A tool for generating and detecting KGW (Kirchenbauer et al.) text watermarks on
     ├── generation.py           # generate_text() (normal / watermarked)
     ├── attacks.py              # Phase 3 attacks + before/after evaluation
     ├── run_attack.py           # CLI: run one attack and re-detect
+    ├── app.py                  # Streamlit app (main interface)
+    ├── similarity.py           # meaning similarity (sentence embeddings)
+    ├── metrics.py              # detection rates and attack summaries
+    ├── charts.py               # comparison charts (PNG)
+    ├── database.py             # SQLite history
+    ├── build_dataset.py        # batch experiments: generate, attack, summary
+    ├── docs/                   # demo script, viva notes, limitations
     ├── tests/                  # pytest tests
-    ├── experiments/            # attack results CSV
+    ├── experiments/            # datasets, results, charts
     ├── requirements.txt        # Python dependencies
     └── README.md
 
@@ -218,6 +225,49 @@ The program performs the following steps:
 11. Display results
 
 `kgw_test.py` and `qwen_test.py` are simpler variants (generation only, no CLI input / no watermarking respectively) used during early development.
+
+---
+
+## Streamlit App (main interface)
+
+```powershell
+.\venv\Scripts\Activate.ps1
+streamlit run app.py
+```
+
+Opens at `http://localhost:8501`. The model loads the first time you press
+Generate, Verify or Run attack (about 30 s), then stays loaded.
+
+| Page | What you can do |
+|---|---|
+| **Generate** | Enter a prompt and generate normal and/or watermarked text, with detection results |
+| **Verify** | Paste any text and check it for the watermark, with an explanation of what the result means |
+| **Robustness** | Pick an attack, apply it, and compare before/after z-scores and meaning similarity |
+| **Analytics** | Dataset results: detection rates, attack summaries and charts |
+| **History** | Everything saved in SQLite (`experiments\watermarkx.db`), downloadable as CSV |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    UI["app.py<br/>Streamlit UI"] --> GEN["generation.py<br/>Qwen + KGW"]
+    UI --> DET["detection.py<br/>KGW detector"]
+    UI --> ATK["attacks.py<br/>4 attacks"]
+    ATK --> DET
+    ATK --> SIM["similarity.py<br/>MiniLM embeddings"]
+    UI --> DB[("database.py<br/>SQLite history")]
+    BD["build_dataset.py<br/>batch experiments"] --> GEN
+    BD --> ATK
+    BD --> MET["metrics.py + charts.py<br/>rates, charts"]
+    UI --> MET
+```
+
+All parts share one loaded model and one KGW configuration
+(`greenlist_ratio=0.5`, `bias=2.0`, `seeding_scheme="lefthash"`, threshold `z ≥ 3.0`),
+defined once in `detection.py`.
+
+> The React frontend + FastAPI backend (`frontend/`, `main.py`) from earlier work
+> still works as before and is unchanged.
 
 ---
 
