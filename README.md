@@ -13,6 +13,12 @@ A tool for generating and detecting KGW (Kirchenbauer et al.) text watermarks on
     ├── kgw_detect.py           # Standalone CLI: generate + detect watermark
     ├── kgw_test.py             # Standalone CLI: generate only
     ├── qwen_test.py            # Standalone CLI: plain Qwen generation, no watermark
+    ├── detection.py            # Shared KGW config, model loading, detect_text()
+    ├── generation.py           # generate_text() (normal / watermarked)
+    ├── attacks.py              # Phase 3 attacks + before/after evaluation
+    ├── run_attack.py           # CLI: run one attack and re-detect
+    ├── tests/                  # pytest tests
+    ├── experiments/            # attack results CSV
     ├── requirements.txt        # Python dependencies
     └── README.md
 
@@ -212,6 +218,98 @@ The program performs the following steps:
 11. Display results
 
 `kgw_test.py` and `qwen_test.py` are simpler variants (generation only, no CLI input / no watermarking respectively) used during early development.
+
+---
+
+## Phase 3 — Robustness Attacks
+
+Attacks change the text itself (without knowing the watermark key). The original and
+attacked texts are then checked by the **same** KGW detector with the **same**
+settings and threshold (z ≥ 3.0).
+
+| File | Purpose |
+|---|---|
+| `detection.py` | KGW settings, loads Qwen + detector once, `detect_text()` |
+| `generation.py` | `generate_text()` — normal or watermarked |
+| `attacks.py` | The attacks, `evaluate_attack()` (before/after detection) and CSV export |
+| `run_attack.py` | Command-line runner |
+| `tests/` | Unit tests (fake models) + one real-model test |
+
+| Attack | What it does | Extra download |
+|---|---|---|
+| `paraphrase` | Qwen rewrites the text (watermarking **off**) | none |
+| `synonym` | Replaces a share of eligible words with WordNet synonyms (skips names, numbers, stopwords) | WordNet (~15 MB) |
+| `translation` | English → German/French/Spanish → English with MarianMT | ~300 MB per model, 2 models |
+| `combined` | Paraphrase, then synonym replacement | WordNet |
+
+### One-time setup (after `pip install -r requirements.txt`)
+
+```powershell
+python -m nltk.downloader -d venv\nltk_data wordnet averaged_perceptron_tagger_eng
+```
+
+**GPU (optional):** a plain `pip install` gives a CPU-only PyTorch on Windows. For an NVIDIA GPU:
+
+```powershell
+pip install --force-reinstall --no-deps torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126
+python -c "import torch; print(torch.cuda.is_available())"
+```
+
+### Run an attack
+
+```powershell
+python run_attack.py --prompt "Explain how vaccines work in simple words." --attack paraphrase --seed 42
+python run_attack.py --text-file experiments\sample_wm.txt --attack synonym --proportion 0.3 --seed 42
+python run_attack.py --text-file experiments\sample_wm.txt --attack translation --pivot de
+python run_attack.py --text-file experiments\sample_wm.txt --attack combined --proportion 0.3 --seed 42
+```
+
+Each run prints before/after z-scores and appends a row to `experiments\attack_results.csv`.
+
+The `outcome` column is decided **only from detector results**:
+
+- `watermark_removed` — detected before, not detected after
+- `watermark_survived` — detected before and after
+- `not_comparable` — the original was not detected, so there is nothing to remove
+- `attack_failed` / `detection_failed` — something went wrong (see the `error` column)
+
+### Charts
+
+```powershell
+python charts.py
+```
+
+Reads `experiments\attack_results.csv` and writes to `experiments\charts\`:
+
+- `z_score_before_after.png`: mean z-score before vs after each attack, with the 3.0 threshold
+- `green_fraction_before_after.png`: green-token share before vs after (0.5 = unwatermarked)
+- `detection_rate_after.png`: share of samples still detected after each attack
+- `attack_summary.csv`: the numbers behind the charts
+
+Only samples whose original text was detected are plotted. Each chart shows the
+sample size `n`, so small-sample results aren't mistaken for reliable rates.
+
+### Experiment dataset (many samples)
+
+```powershell
+python build_dataset.py generate    # 20 prompts -> normal + watermarked text, detected
+python build_dataset.py attack      # all 4 attacks on every watermarked text
+python build_dataset.py summary     # tables + charts in experiments\charts\dataset\
+```
+
+- Normal and watermarked text for a prompt use the **same seed**, so the watermark is the only difference.
+- Both steps are **resumable**: stop with Ctrl+C and run the same command again to continue. Failed rows are saved with their error and retried next time.
+- `--limit 2` runs a quick trial; `--prompts-file my_prompts.txt` uses your own prompts.
+- The summary reports the **true positive rate** (watermarked text detected) and the **false positive rate** (normal text wrongly flagged).
+
+Outputs: `experiments\dataset.csv`, `experiments\dataset_attack_results.csv`, `experiments\dataset_run_info.json`.
+
+### Tests
+
+```powershell
+python -m pytest -v                                     # fast, no model download
+$env:RUN_INTEGRATION = "1"; python -m pytest tests\test_integration_paraphrase.py -v -s   # real Qwen
+```
 
 ---
 
