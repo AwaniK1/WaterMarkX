@@ -1,0 +1,5 @@
+attack_type,n_samples,n_failed,n_not_comparable,n_comparable,n_removed,n_survived,detection_rate_after,mean_z_before,mean_z_after,mean_z_drop,mean_green_before,mean_green_after
+paraphrase,1,0,0,1,1,0,0.0,5.0709,0.6261,4.4448,0.7143,0.528
+synonym,1,0,0,1,0,1,1.0,5.0709,3.9725,1.0984,0.7143,0.6644
+translation,1,0,0,1,0,1,1.0,5.0709,3.7187,1.3522,0.7143,0.6571
+combined,1,0,0,1,1,0,0.0,5.0709,0.6211,4.4498,0.7143,0.5276

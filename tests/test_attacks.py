@@ -431,3 +431,35 @@ def test_csv_gains_new_columns_without_losing_rows(tmp_path):
         rows = list(csv.DictReader(f))
     assert [r["a"] for r in rows] == ["1", "3", "6"]
     assert [r["c"] for r in rows] == ["", "5", ""]
+
+
+# ------------------------------------------------------------------
+# Translation: list markers / tiny fragments (hallucination fix)
+# ------------------------------------------------------------------
+def test_split_sentences_never_leaves_tiny_fragments():
+    from attacks import _split_sentences
+    parts = _split_sentences("Eat well. 5. Limit salt intake. Drink water daily. Ok.")
+    assert all(len(p.split()) >= 2 for p in parts)
+    assert "5." not in parts and "Ok." not in parts
+    assert " ".join(parts) == "Eat well. 5. Limit salt intake. Drink water daily. Ok."
+
+
+def test_translation_keeps_list_markers_out_of_the_model(monkeypatch):
+    seen = []
+
+    def recording_translate(sentences, model_name, device, num_beams, batch_size=8):
+        seen.extend(sentences)
+        return sentences  # identity "translation"
+    monkeypatch.setattr(attacks, "_translate", recording_translate)
+    text = "Tips:\n1. Drink plenty of water.\n- Sleep eight hours each night."
+    out = translation_round_trip(text, device="cpu")
+    assert out.text == text  # markers restored exactly
+    assert not any(s.strip() in ("1.", "-") for s in seen)
+    assert all(not s.startswith(("1.", "- ")) for s in seen)
+
+
+def test_translation_flags_suspiciously_long_output(monkeypatch):
+    monkeypatch.setattr(attacks, "_translate",
+                        lambda s, *a, **k: [x + " plus lots of invented extra words here" for x in s])
+    out = translation_round_trip("Short sentence here. Another one here.", device="cpu")
+    assert any("hallucinated" in w for w in out.warnings)

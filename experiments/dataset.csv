@@ -1,0 +1,424 @@
+timestamp,prompt_id,prompt,condition,seed,max_new_tokens,temperature,top_p,greenlist_ratio,bias,seeding_scheme,z_threshold,text,num_tokens_scored,num_green_tokens,green_fraction,z_score,p_value,predicted_watermarked,correct,generation_seconds,warning,error
+2026-10-30T17:10:54+00:00,0,Explain how vaccines work in simple words.,normal,1000,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Vaccines work by helping the body recognize and fight off infections before they actually occur. Here's a simplified explanation:
+
+1. **Boosters**: When you get vaccinated, it introduces small amounts of weakened or dead parts of a virus into your system. This is called an antigen.
+
+2. **Immune Response**: Your immune system recognizes these antigens as threats because they look similar to viruses. It starts making antibodies, which are special proteins designed to bind to these antigens.
+
+3. **Memory Cells**: After initial exposure, some memory cells stay behind in your body. These help quickly produce more antibodies if you later encounter the real virus.
+
+4. **Prevention**: By preparing your body to recognize and deal with the virus, vaccines prevent infection from occurring in the first place.
+
+5. **Long-term Protection**: The antibodies remain in your body for years, providing ongoing protection against that specific type of disease.
+
+In essence, vaccines teach your immune system what to do when faced with a real",199,97,0.48743718592964824,-0.3544406025041679,0.5384313762440547,False,True,157.3,,
+2026-10-30T17:13:34+00:00,0,Explain how vaccines work in simple words.,watermarked,1000,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Vaccines work by helping the body recognize and fight off diseases before they cause illness. Here's how it typically works:
+
+1. **Preparation**: A vaccine is made from a weakened or inactive form of a disease-causing microorganism (like bacteria or virus), often called an antigen.
+
+2. **Injection into the Body**: The vaccine is injected into the skin through a needle or sometimes given orally as a pill. When this happens, the immune system recognizes these tiny amounts of antigens as foreign invaders.
+
+3. **Immune Response**: Your immune system responds to these unfamiliar substances by producing antibodies. These antibodies are like special soldiers that can quickly identify and destroy any actual pathogens if they enter your body again.
+
+4. **Memory**: Once you get sick with a real infection after being vaccinated, your immune system will remember how to respond more quickly next time. This memory helps protect against the same type of pathogen without needing another vaccine dose.
+
+5. **Protection**: Because your immune",199,122,0.6130653266331658,3.1899654225375116,0.0007683131151329237,True,True,159.5,,
+2026-10-30T17:16:13+00:00,1,Describe the water cycle for a school student.,normal,1001,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The water cycle is also known as the hydrological cycle and it's the continuous movement of water on Earth. It includes several key processes that involve evaporation from bodies of water like oceans, lakes, rivers, and other freshwater sources; condensation, which turns liquid water into vapor in the atmosphere; precipitation, where this vapor forms clouds and falls back to earth as rain or snow; and finally, infiltration when some of the water soaks into the ground.
+
+Here's an overview of how these steps work:
+
+1. **Evaporation**: Water evaporates (changes from liquid to gas) from oceans, seas, lakes, rivers, and other water bodies due to heat from the sun. This process occurs through evapotranspiration, which involves both plants and animals.
+
+2. **Condensation**: As water vapor rises higher in the atmosphere, it cools and changes back into liquid form, creating clouds. This process is essential because without condensation, there would be no precipitation.
+
+3. **",199,94,0.4723618090452261,-0.7797693255091694,0.6604851509402534,False,True,159.7,,
+2026-10-30T17:18:55+00:00,1,Describe the water cycle for a school student.,watermarked,1001,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The water cycle is also known as the hydrological cycle and it's the continuous movement of water on Earth. It includes several processes:
+
+1. Evaporation: Water from oceans, rivers, lakes, and other bodies of water heats up in sunlight and turns into vapor (water vapor) that rises into the air.
+
+2. Condensation: As water vapor rises, cools, and loses heat energy, it changes back into liquid form (condenses) and falls to the ground as precipitation.
+
+3. Collection: Precipitation can fall as rain, snow, sleet, or hail. Some of this water collects in bodies of water like rivers, lakes, and oceans while some evaporates again, completing the cycle.
+
+4. Runoff: The remaining water runs off the land surface into streams, rivers, and eventually into larger water bodies such as lakes, reservoirs, and oceans.
+
+5. Infiltration: Some of the rainfall seeps underground and replenishes groundwater supplies.
+
+6.",199,119,0.5979899497487438,2.76463669953251,0.0038527439824987963,False,False,161.4,,
+2026-10-30T17:21:33+00:00,2,What are the main causes of climate change?,normal,1002,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Climate change is caused primarily by human activities that increase greenhouse gas concentrations in the atmosphere. These gases trap heat from the sun and lead to global warming. The primary sources of these emissions include burning fossil fuels (coal, oil, natural gas), deforestation, and industrial processes.
+
+The most significant greenhouse gases contributing to this phenomenon are carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and fluorinated gases. Human activities have led to an unprecedented rise in their levels over time.
+
+Here are some key factors:
+
+1. **Fossil Fuel Use**: Burning coal, oil, and natural gas for energy production releases large amounts of CO2 into the atmosphere.
+   
+2. **Deforestation**: Trees absorb CO2 through photosynthesis but release it back into the atmosphere when they are cut down or burned. This reduces the Earth's capacity to absorb CO2.
+
+3. **Industrial Processes**: Manufacturing industries like cement production and chemical processing also contribute significantly to greenhouse gas emissions.
+
+",199,100,0.5025125628140703,0.07088812050083358,0.49840300865821785,False,True,158.1,,
+2026-10-30T17:24:12+00:00,2,What are the main causes of climate change?,watermarked,1002,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Climate change is caused by several factors, including:
+
+1. Greenhouse gas emissions: Human activities such as burning fossil fuels for energy production, deforestation, and industrial processes release large amounts of greenhouse gases into the atmosphere. These include carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and fluorinated gases.
+
+2. Deforestation: Trees absorb CO2 during photosynthesis and release oxygen. When trees are cut down or burned, they remove this natural carbon sink from the environment. This results in increased atmospheric CO2 levels.
+
+3. Industrial processes: Manufacturing, agriculture, and other industries produce various chemicals and waste that contribute to air pollution and global warming.
+
+4. Land use changes: Conversion of natural habitats like forests, wetlands, and grasslands into agricultural lands, urban areas, and roads increases the absorption of sunlight, leading to higher temperatures.
+
+5. Natural phenomena: Changes in solar radiation intensity and volcanic eruptions can also impact Earth's temperature over long",199,115,0.5778894472361809,2.1975317355258412,0.023110300885773927,False,False,159.5,,
+2026-10-30T17:26:53+00:00,3,Explain how a computer stores information.,normal,1003,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A computer uses binary code to store and process data. Binary code is made up of only two digits: 0 and 1. Each digit represents a bit of information.
+
+When you input or create digital content on your computer, it's broken down into binary code that the computer can understand. For example, if you type ""Hello World"" in a text editor, each letter will be converted into its corresponding ASCII code (which is just another way of saying binary code).
+
+The computer then processes this binary code using instructions written in a programming language. These instructions tell the computer what to do with the stored data.
+
+For instance, if you want to save a file on your hard drive, the computer reads the contents of the file, converts them into binary code, writes that binary code to the appropriate location on the hard drive, and then tells the operating system (or other programs) that the file has been saved.
+
+In summary, computers use binary code to represent all types of information they need to",199,100,0.5025125628140703,0.07088812050083358,0.49840300865821785,False,True,160.4,,
+2026-10-30T17:29:24+00:00,3,Explain how a computer stores information.,watermarked,1003,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A computer uses binary code to store and process data. Binary code consists of two symbols: 0 and 1, which represent the two states of a switch in a circuit - open or closed.
+
+When data is stored in memory, it is represented as a series of bits (binary digits). Each bit can hold one piece of information - either a 0 or a 1. In turn, each group of four bits forms a byte, which can hold eight pieces of information.
+
+To store more complex data structures like text, images, audio, or video files, computers use file formats that define the structure and layout of these data types. For example, an image file may be organized into rows and columns, with each pixel assigned a color value based on its position within the array.
+
+Finally, when a program runs, instructions are executed sequentially by reading from memory and writing back results to memory. The processor continuously fetches operands from registers and memory locations until it completes all operations required for the current",199,127,0.6381909547738693,3.8988466275458475,3.1346512552543615e-05,True,True,151.6,,
+2026-10-30T17:31:58+00:00,4,Write a short story about a lost dog finding its way home.,normal,1004,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Once upon a time, in the quiet town of Willowbrook, there was a stray dog named Max. Max had been wandering around for days without food or water, feeling lost and alone. He had no idea where he came from or what his name was.
+
+One day, while Max was sniffing around outside a local pet store, he heard the sound of barking coming from inside. Curious, Max followed the sound until he found an elderly woman named Mrs. Thompson who was feeding her cat.
+
+Mrs. Thompson took pity on Max and brought him to her house. She gave him some dry dog food and water, and then sat down with him on the couch to talk. Max soon warmed up to Mrs. Thompson and started wagging his tail enthusiastically.
+
+Over the next few weeks, Max began to make friends with the other animals in the neighborhood - a playful puppy named Sparkle, a friendly cat named Whiskers, and even the mailman who would come by and give him treats",199,104,0.5226130653266332,0.6379930845075023,0.3858626423912249,False,True,154.0,,
+2026-10-30T17:34:36+00:00,4,Write a short story about a lost dog finding its way home.,watermarked,1004,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Once upon a time, in the quiet town of Willowbrook, there was a small golden retriever named Max who had been missing for days. The townspeople were worried sick about their beloved pet and had searched high and low to find him.
+
+Max's owner, Sarah, had left him at the local park one morning while she went out for coffee. She knew that he was only 3 months old and very mischievous, so she hadn't taken him anywhere away from home. But something must have happened when Sarah left him alone, because now the entire town seemed to be looking for him.
+
+The search continued day after day as word spread throughout the area that Max might not make it back home alive. But then one night, something miraculous happened.
+
+As Max lay sleeping on his favorite spot under the oak tree in the park, a group of children were playing nearby. They saw Max lying peacefully with his head resting on his paws, seemingly asleep forever. But they noticed something unusual -",199,144,0.7236180904522613,6.309042724574189,4.942379838723809e-12,True,True,158.0,,
+2026-10-30T17:37:25+00:00,5,Describe the benefits and risks of social media for teenagers.,normal,1005,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Social media has become an integral part of daily life for many teenagers around the world. It offers numerous benefits but also poses several risks that parents, educators, and teenagers themselves need to be aware of.
+
+**Benefits:**
+
+1. **Connectivity**: Social media allows teens to connect with friends, family, and peers from all over the world in real-time. This can help them feel more connected to others and provide opportunities for new friendships.
+   
+2. **Information Sharing**: They have access to vast amounts of information on various topics. This can enhance their knowledge and understanding of different subjects, as well as expose them to diverse perspectives and cultures.
+
+3. **Self-expression**: Platforms like Instagram, TikTok, or Twitter offer creative outlets where teenagers can express themselves through photography, videos, music, and writing, fostering personal development and confidence.
+
+4. **Educational Resources**: Many educational institutions use social media platforms to deliver content and engage students in interactive learning experiences, making education more accessible and engaging.
+
+",199,103,0.5175879396984925,0.4962168435058351,0.42745647745889603,False,True,168.8,,
+2026-10-30T17:40:12+00:00,5,Describe the benefits and risks of social media for teenagers.,watermarked,1005,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Social media has become an integral part of daily life for many teenagers, offering numerous advantages but also presenting some challenges and risks.
+
+**Benefits:**
+1. **Communication**: Social media platforms enable teens to connect with friends and family who live far away or have different schedules.
+2. **Self-expression**: It provides a space where young people can express themselves freely without fear of judgment from authority figures or peers.
+3. **Learning resources**: Websites like Khan Academy, Coursera, and TED-Ed offer educational content that helps in learning new skills and knowledge.
+4. **Opportunities for career advancement**: LinkedIn is particularly useful for those looking to enter the workforce after high school or college.
+5. **Networking opportunities**: Platforms like Instagram and Facebook allow students to network with professionals in their fields of interest, potentially leading to internships or job offers.
+6. **Access to information**: News sites such as CNN, BBC, and others provide teens with diverse perspectives on world events.
+
+**Risks",199,124,0.6231155778894473,3.473517904540846,0.0002307506943912685,True,True,167.0,,
+2026-10-30T17:43:48+00:00,6,Explain how photosynthesis works.,normal,1006,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Photosynthesis is the process by which plants and other organisms use light energy to synthesize nutrients from carbon dioxide and water. It takes place in the chloroplasts of plant cells, where pigments such as chlorophyll capture sunlight.
+
+The overall chemical equation for photosynthesis can be represented as:
+
+6 CO2 + 6 H2O + light energy → C6H12O6 + 6 O2
+
+Here's a step-by-step explanation of how it works:
+
+1. Light absorption: Chlorophyll molecules absorb photons (particles of light) from the sun.
+2. Water splitting: The absorbed light energy is used to split water molecules into hydrogen and oxygen atoms.
+3. Carbon fixation: The hydrogen atoms combine with carbon dioxide (CO2) from the atmosphere through an enzyme called RuBisCO, forming glucose (C6H12O6).
+4. Oxygen release: As a byproduct of this reaction, oxygen (O2) is released back into the",199,98,0.49246231155778897,-0.21266436150250076,0.5141906565903712,False,True,216.1,,
+2026-10-30T17:47:00+00:00,6,Explain how photosynthesis works.,watermarked,1006,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Photosynthesis is the process by which plants and other organisms use light energy to synthesize nutrients from carbon dioxide and water, producing oxygen as a byproduct. The basic steps of photosynthesis can be summarized as follows:
+
+1. Light absorption: Chlorophyll molecules in chloroplasts capture sunlight.
+
+2. Water splitting: ATP (adenosine triphosphate) and NADPH (nicotinamide adenine dinucleotide phosphate) produced from ATP store chemical energy during the reaction with H2O (water).
+
+3. Carbon fixation: CO2 enters the Calvin cycle where it's converted into glucose through a series of enzyme-catalyzed reactions that require both ATP and NADPH stored earlier in step 2.
+
+4. Oxygen release: Glucose production requires oxygen from atmospheric O2 which combines with ADP and NADP+ to produce more ATP for future processes.
+
+The overall equation representing photosynthesis is:
+6CO2 + 6H2O + light → C",199,120,0.6030150753768844,2.906412940534177,0.0023092678443572545,False,False,191.4,,
+2026-10-30T17:48:30+00:00,7,What should a beginner know before learning to cook?,normal,1007,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Before starting to learn how to cook, there are several key concepts and skills that beginners should consider acquiring:
+
+1. Basic Cooking Techniques: Understanding the fundamentals of cooking such as sautéing, frying, grilling, roasting, baking, boiling, steaming, poaching, simmering, braising, etc., is essential.
+
+2. Knife Skills: Practicing proper knife handling techniques is crucial for safe and efficient food preparation. This includes holding knives correctly, sharpening them, and using them properly in various cutting methods like slicing, dicing, chopping, mincing, etc.
+
+3. Safety Precautions: Knowing basic safety rules when working with heat sources (like stoves or ovens), handling sharp objects, storing raw ingredients safely, and dealing with potentially hazardous foods can prevent accidents.
+
+4. Food Handling and Storage: Learning about proper food storage methods to maintain freshness and safety is important. This includes understanding refrigerator temperatures, knowing when foods need refrigeration, freezing, and thaw",199,114,0.5728643216080402,2.055755494524174,0.03392559566795117,False,True,90.4,,
+2026-10-30T17:51:42+00:00,7,What should a beginner know before learning to cook?,watermarked,1007,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Before starting to learn how to cook, there are several key areas that beginners should be familiar with:
+
+1. Basic cooking terminology: Understanding terms like ingredients, utensils, methods of preparation (e.g., frying, baking), and common cooking equipment will help you communicate effectively with other cooks.
+
+2. Food safety basics: Learn about proper handling and storage techniques for food items to prevent contamination and ensure safe consumption.
+
+3. Safety gear: Familiarize yourself with kitchen tools and appliances such as knives, grates, pans, spatulas, etc., their uses, maintenance, and safety precautions.
+
+4. Hygiene practices: Knowing how to properly wash your hands, clean work surfaces, and prepare raw and cooked foods can significantly reduce the risk of foodborne illness.
+
+5. Budget management: Planning meals within a budget is crucial, especially if you're new to cooking or have limited resources at home.
+
+6. Seasonal produce knowledge: Knowing which fresh fruits and vegetables are in season where you live can",199,118,0.592964824120603,2.622860458530843,0.006265434602493736,False,False,191.6,,
+2026-10-30T18:00:04+00:00,8,Describe the history of the printing press and why it mattered.,normal,1008,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The printing press is one of the most important inventions in human history. It revolutionized communication and knowledge dissemination, allowing for faster and more widespread access to information.
+
+The origins of the printing press can be traced back to China during the Tang Dynasty (618-907 CE). During this time, woodblock printing was developed as a way to mass produce texts on scrolls. However, the process was slow and expensive, limiting its use to scholars and religious leaders.
+
+In Europe, Johannes Gutenberg's invention of movable type in the mid-15th century marked a significant advancement in printing technology. Gutenberg used metal types cast from molds made from letter punches and inked with a quill or brush. This allowed for greater flexibility in design and production speed compared to traditional woodblock printing.
+
+The printing press had a profound impact on society:
+
+1. Rapid Information Dissemination: The ability to print books quickly increased literacy rates and facilitated the spread of ideas across vast distances.
+2. Accelerated",199,98,0.49246231155778897,-0.21266436150250076,0.5141906565903712,False,True,502.2,,
+2026-10-30T18:02:17+00:00,8,Describe the history of the printing press and why it mattered.,watermarked,1008,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The Printing Press is an important invention in human civilization, which has had a profound impact on society. The printing press was invented by Johannes Gutenberg around 1440 AD in Mainz, Germany.
+
+Before the printing press, books were handwritten and produced one at a time. This process was slow and expensive, making them difficult for large numbers of people to access. With the invention of the printing press, this changed dramatically.
+
+Gutenberg's printing press used movable type made from metal letters that could be rearranged quickly to create new texts. This allowed him to print thousands of copies of his works in a short amount of time, making books more widely available and affordable to the general public.
+
+The printing press also helped to spread knowledge across Europe during the Renaissance period, enabling scholars to communicate with each other and share their ideas more easily than before. This led to significant advances in fields such as science, art, literature, and philosophy.
+
+Furthermore, the printing press played a crucial role in shaping modern",199,132,0.6633165829145728,4.6077278325541835,6.744820730819612e-07,True,True,133.3,,
+2026-10-30T18:03:35+00:00,9,Explain what inflation is and how it affects ordinary people.,normal,1009,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Inflation refers to a sustained increase in the general price level of goods and services in an economy over time. It means that money buys less as time goes on. In other words, prices for everyday items like food, clothing, and housing tend to rise.
+
+For example, if the price of apples increases from $1 per pound to $2 per pound within one year, this represents inflation because you need twice as much money now to buy the same amount of apples.
+
+The effects of inflation can be both positive and negative depending on whether it's high or low:
+
+Positive Effects:
+1. Income Redistribution: If wages grow faster than inflation, workers' real incomes (adjusted for inflation) may actually increase.
+2. Increased Purchasing Power: As prices go up, consumers have more spending power with each dollar they earn.
+3. Economic Growth: When businesses see higher profits due to increased sales, they might invest more, leading to economic growth.
+
+Negative Effects:
+1. Cost-of-Living Adjustments",199,98,0.49246231155778897,-0.21266436150250076,0.5141906565903712,False,True,77.3,,
+2026-10-30T18:05:21+00:00,9,Explain what inflation is and how it affects ordinary people.,watermarked,1009,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Inflation refers to a sustained increase in the general price level of goods and services in an economy over time. This means that each unit of currency buys fewer goods and services than before.
+
+Inflation can affect ordinary people in several ways:
+
+1. Cost-of-Living Increase: Inflation leads to higher prices for necessities like food, housing, and utilities. This increases the cost of living, making it more difficult for individuals to afford basic needs.
+
+2. Debt Burden: If you have debts (such as student loans or mortgages), inflation erodes the purchasing power of your future income. For example, if inflation rises from 0% to 5%, and your salary remains constant, then $1 today will only buy half as much as $1 would 1 year ago.
+
+3. Savings Decrease: With inflation, savings lose their value because they don't keep up with rising prices. People who save money face a loss in purchasing power over time unless they adjust their spending habits accordingly.
+
+",199,120,0.6030150753768844,2.906412940534177,0.0023092678443572545,False,False,106.0,,
+2026-10-30T18:08:35+00:00,10,Give advice to a student preparing for their final exams.,normal,1010,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Preparing for final exams can be daunting and stressful, but with the right mindset and strategies, you can achieve success. Here are some tips that may help:
+
+1. Create a study schedule: Plan your study time in advance and stick to it as closely as possible. Break down your study sessions into manageable chunks, focusing on one subject at a time.
+
+2. Focus on understanding rather than memorization: Try to understand the concepts behind each topic instead of just memorizing facts. This will make it easier to recall information during exams.
+
+3. Practice regularly: Regular practice is key to improving your skills and building confidence. Work through past exam papers or practice tests to get used to the format and types of questions asked.
+
+4. Get enough sleep: Make sure you're getting enough rest before an exam. Lack of sleep can affect your memory retention and ability to concentrate.
+
+5. Eat well and exercise: Eating a healthy diet and exercising regularly can improve your mental health and overall performance on test days.
+
+6",199,106,0.5326633165829145,0.9215455665108366,0.2911856848833554,False,True,194.5,,
+2026-10-30T18:11:26+00:00,10,Give advice to a student preparing for their final exams.,watermarked,1010,200,0.7,0.9,0.5,2.0,lefthash,3.0,"As an AI language model, I cannot provide personalized advice based on the student's individual circumstances and preferences. However, here are some general tips that may be useful for any student preparing for finals:
+
+1. Create a study schedule: Make a plan of your study time and stick to it as closely as possible. Allocate specific times each day or week for studying, reviewing notes, practicing problem sets, etc.
+
+2. Break down the material into manageable chunks: Divide large subjects or topics into smaller, more digestible pieces so you can focus on one thing at a time without feeling overwhelmed.
+
+3. Use active learning techniques: Instead of just passively reading or listening to lectures, engage with the material through activities like summarizing key points, creating flashcards, discussing problems out loud, etc.
+
+4. Take breaks: It's important to give yourself regular rest periods during study sessions to avoid burnout and maintain concentration levels. Try taking short walks, doing some light exercise, or engaging in other enjoyable activities",199,122,0.6130653266331658,3.1899654225375116,0.0007683131151329237,True,True,171.2,,
+2026-10-30T18:14:20+00:00,11,Describe a typical day in the life of a farmer.,normal,1011,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A typical day for a farmer can vary depending on their specific crops and location, but generally follows these steps:
+
+6:00 AM - Wake up and prepare breakfast
+
+7:00 AM - Start working outdoors if needed (e.g., checking plants or animals)
+
+8:00 AM - Prepare tools and equipment necessary to start farming activities
+
+9:00 AM - Begin planting seeds or transplanting seedlings into the soil
+
+12:00 PM - Take breaks as needed, perhaps watering plants or feeding animals
+
+1:00 PM - Continue with farming tasks until mid-afternoon
+
+4:00 PM - Lunch break and time to relax or catch up on other tasks
+
+5:00 PM - End workday and head home
+
+7:00 PM - Dinner preparation and cleanup from farm chores
+
+8:00 PM - Evening meetings or personal time before bed
+
+This is just an example, as farmers often have very busy and varied schedules throughout the year",199,108,0.542713567839196,1.205098048514171,0.19835727741227638,False,True,173.5,,
+2026-10-30T18:17:21+00:00,11,Describe a typical day in the life of a farmer.,watermarked,1011,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A typical day for a farmer can vary depending on the type and scale of farming operation they have. Here's an example of what might be a normal day:
+
+6:00 AM - The farmer wakes up and checks their farm to see how everything is going from the night before.
+
+7:00 AM - The farmer goes to work early in the morning as there may be tasks that need to be done first thing in the day.
+
+8:00 AM - The farmer will typically start with the more labor-intensive activities like planting or harvesting crops. This can take several hours and requires physical effort.
+
+12:00 PM - Lunchtime usually comes around at this point, allowing the farmer to take some time off and eat a quick meal.
+
+1:30 PM - After lunch, the farmer will return to work if needed or head back home for rest and relaxation.
+
+4:00 PM - The farmer will spend most of the afternoon working on more intensive activities like pruning trees,",199,127,0.6381909547738693,3.8988466275458475,3.1346512552543615e-05,True,True,180.7,,
+2026-10-30T18:20:05+00:00,12,Explain how the internet sends a message from one computer to another.,normal,1012,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The Internet is a global network of interconnected computers that allow users to send and receive information over long distances. Here's an overview of how messages travel between computers on the Internet:
+
+1. **Transmission Control Protocol (TCP) or User Datagram Protocol (UDP)**: When you type something into your web browser or email program, it's sent as data packets through the TCP/IP protocol stack.
+
+2. **IP Address**: Each device connected to the Internet has a unique IP address (e.g., 192.0.2.1). The first three octets represent the location within a country, while the last four represent the specific router in each country.
+
+3. **Routing**: Messages are routed through routers located at various points along their path across the globe. Routers compare addresses for each packet with routing tables stored in memory, which direct them to the appropriate next hop towards their destination.
+
+4. **Segmentation**: Data is broken down into smaller pieces called segments when it travels through different",199,95,0.47738693467336685,-0.6379930845075023,0.6141373576087751,False,True,164.4,,
+2026-10-30T18:22:37+00:00,12,Explain how the internet sends a message from one computer to another.,watermarked,1012,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The Internet is essentially a network of interconnected computers that communicate with each other using standardized protocols and communication technologies. Here's an overview of how messages travel between computers on the Internet:
+
+1. **Transmission Control Protocol (TCP)**: This protocol ensures reliable delivery of data packets across networks. It establishes a connection between two devices before transmitting any data.
+
+2. **User Datagram Protocol (UDP)**: This protocol allows for faster transmission but does not guarantee reliability or order. Packets may be lost, reordered, or duplicated during transit.
+
+3. **IP Addressing**: Each device connected to the Internet has an IP address, which identifies its location within the global network. IP addresses consist of four numbers separated by periods (e.g., 192.0.2.1).
+
+4. **Data Encoding**: Data needs to be converted into a format suitable for transmission over the network. Typically, this involves encoding text into binary format.
+
+5. **Network Routing**: The path taken by a packet through",199,132,0.6633165829145728,4.6077278325541835,6.744820730819612e-07,True,True,152.3,,
+2026-10-30T18:25:00+00:00,13,What are the advantages of renewable energy?,normal,1013,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Renewable energy has several key advantages:
+
+1. **Environmental Benefits**: Renewable energy sources like solar and wind power do not produce greenhouse gases or other pollutants during operation, which helps to mitigate climate change.
+
+2. **Energy Independence**: Countries that rely heavily on renewable energy can reduce their dependence on imported fossil fuels, enhancing national security and reducing costs related to fuel imports.
+
+3. **Cost Efficiency**: While initial investment in renewable technologies may be higher than traditional energy sources, they often become more cost-effective over time due to declining technology costs and increased economies of scale.
+
+4. **Job Creation**: The renewable energy sector creates jobs directly in manufacturing, installation, maintenance, and research. This job creation is particularly important in rural areas where many people work in agriculture but have limited access to conventional employment opportunities.
+
+5. **Health Improvements**: Reduced reliance on air pollution from burning fossil fuels leads to fewer respiratory and cardiovascular diseases among both local communities and those who travel through affected regions.
+
+6. **Resource Sustainability",199,89,0.4472361809045226,-1.4886505305175053,0.8780260499996555,False,True,142.6,,
+2026-10-30T18:26:32+00:00,13,What are the advantages of renewable energy?,watermarked,1013,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Renewable energy sources have several advantages over traditional fossil fuels:
+
+1. Sustainability: Renewable energy sources such as solar, wind, and hydropower do not deplete resources or produce harmful pollutants that can harm human health.
+
+2. Cost-effectiveness: The cost of generating electricity from renewable sources is decreasing rapidly due to technological advancements in battery storage, grid management systems, and other technologies.
+
+3. Reduced greenhouse gas emissions: Fossil fuel-based power plants emit large amounts of carbon dioxide (CO2) and other greenhouse gases into the atmosphere, contributing to climate change. Renewable energy sources emit very little CO2 during operation and therefore help reduce global warming.
+
+4. Energy security: Dependence on imported fossil fuels can create risks for national economies and lead to geopolitical tensions. By diversifying their energy mix with local renewable sources, countries can increase their energy independence and avoid economic and political risks associated with oil and gas imports.
+
+5. Economic development opportunities: Developing and deploying renewable energy infrastructure creates jobs and stimulates",199,134,0.6733668341708543,4.891280314557518,1.214169553787059e-07,True,True,92.3,,
+2026-10-30T18:27:44+00:00,14,Describe how the human heart pumps blood.,normal,1014,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The human heart is a muscular organ that pumps blood throughout the body through a network of arteries, veins, and capillaries. The heart has four chambers: two atria (upper chambers) and two ventricles (lower chambers). Blood flows in a coordinated manner to maintain circulation.
+
+1. **Atrioventricular Valve Opening**: When the heart contracts, the atria contract first, pushing their contents into the ventricles. At this point, the tricuspid valve at the right side of the heart opens to allow blood from the right atrium to flow into the right ventricle, while the mitral valve at the left side of the heart opens to allow blood from the left atrium to flow into the left ventricle.
+
+2. **Ventricular Filling**: As the ventricles contract, they force blood out into the pulmonary artery for the lungs or into the aorta for systemic circulation.
+
+3. **Pulmonary Vein Return**: After",199,94,0.4723618090452261,-0.7797693255091694,0.6604851509402534,False,True,71.6,,
+2026-10-30T18:30:06+00:00,14,Describe how the human heart pumps blood.,watermarked,1014,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The human heart is a muscular organ that pumps oxygenated blood to all parts of the body and removes deoxygenated blood from the body. The pumping action of the heart is generated through the contraction and relaxation of its four chambers: the right atrium, the right ventricle, the left atrium, and the left ventricle.
+When the heart contracts, it pushes blood out into the arteries, which carry the blood throughout the body. This process is called systole. During this phase, the right side of the heart pumps oxygen-depleted blood back to the lungs, where it picks up oxygen before returning to the left side of the heart. The left side of the heart then pumps oxygen-rich blood to the rest of the body via the pulmonary veins.
+During diastole, when the heart relaxes, blood flows back into the heart's chambers from the arteries, picking up oxygen in the process. This allows for efficient circulation of blood throughout the body. The heart repeats these",199,112,0.5628140703517588,1.7722030125208397,0.06770595515817379,False,False,141.9,,
+2026-10-30T18:32:32+00:00,15,Write a short essay about the importance of friendship.,normal,1015,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Friendship is an essential aspect of human life that has been recognized and valued throughout history. It refers to the relationship between individuals who share common interests, values, or goals and who interact regularly in order to support one another.
+
+The importance of friendship cannot be overstated. Friends can provide emotional support during difficult times, help us navigate through challenging situations, and offer companionship when we feel lonely or isolated. They also serve as role models for good behavior and encourage us to pursue our dreams and aspirations.
+
+Moreover, friendships can have a positive impact on our physical health as well. Research has shown that people with strong social connections tend to live longer than those without them. This may be due to factors such as reduced stress levels, improved immune function, and increased opportunities for exercise and other healthy activities.
+
+However, not all friends are created equal. Some relationships are based on superficial qualities while others are built on deeper bonds of trust and mutual respect. Therefore, it's important to take time to cultivate meaningful friendships",199,101,0.507537688442211,0.21266436150250076,0.4858093434096288,False,True,146.3,,
+2026-10-30T18:35:05+00:00,15,Write a short essay about the importance of friendship.,watermarked,1015,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Friendship is an essential aspect of human life that has been valued throughout history and continues to be so in modern times. It plays a vital role in our emotional well-being, social interactions, and personal growth.
+
+One of the primary benefits of having friends is emotional support. Friends provide us with someone who can listen to our problems, offer advice, and share joyous moments with us. This emotional connection helps reduce stress and anxiety, promotes positive mental health, and strengthens relationships. Research has shown that people with close friendships tend to have better physical health outcomes as well.
+
+Friendships also serve as important sources of companionship during difficult times. In uncertain situations, such as illness or loss, friends can offer comfort, empathy, and encouragement. They can help us navigate through challenging experiences and find hope when we feel overwhelmed. The strength of these connections is often tested during periods of adversity, but they prove their worth in times of need.
+
+Moreover, friendships contribute significantly to our overall happiness and sense of belonging.",199,124,0.6231155778894473,3.473517904540846,0.0002307506943912685,True,True,153.1,,
+2026-10-30T18:37:35+00:00,16,Explain what machine learning is to someone with no technical background.,normal,1016,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Machine Learning is like teaching computers to learn from data and improve their performance over time without being explicitly programmed for each specific task.
+
+Imagine you have a group of friends who are really good at playing different games, but they're not very consistent in how well they do it every single time. To make them better at playing these games consistently, we could train them using Machine Learning techniques. 
+
+We would start by showing them the rules of the game and giving them examples of how other players play the game (this is similar to providing training data). Then, we would teach them algorithms that can analyze the patterns in those examples and help them predict how to play better next time.
+
+As they get more practice playing games according to our instructions, they'll become better at it over time because they've learned new strategies based on past experiences. This process is called ""learning"" - just like how humans learn through experience!
+
+The key difference between us and the computer, though, is that we can't see or understand",199,107,0.5376884422110553,1.0633218075125037,0.2434257269943878,False,True,150.3,,
+2026-10-30T18:40:06+00:00,16,Explain what machine learning is to someone with no technical background.,watermarked,1016,200,0.7,0.9,0.5,2.0,lefthash,3.0,"Machine Learning is like teaching computers how to learn from data without being explicitly programmed. It's like showing a child a bunch of pictures and letting them figure out that all the pictures have something in common - maybe they're all dogs or cats.
+
+The computer doesn't know anything about these concepts before it starts learning. But as it processes more and more examples (like seeing more and more doggy faces), it starts to recognize patterns and make predictions on its own. For example, if you show the computer lots of images of different types of animals, it might start recognizing certain features that tell it apart between cats, dogs, birds, etc.
+
+This process of learning happens automatically through trial and error, using algorithms that can adjust themselves based on new information they receive. This allows machines to improve their performance over time just by observing the environment around them, without needing any human intervention.
+
+So, essentially, Machine Learning is the ability for machines to get better at doing tasks simply by processing more data, rather than",199,127,0.6381909547738693,3.8988466275458475,3.1346512552543615e-05,True,True,150.7,,
+2026-10-30T18:41:07+00:00,17,Describe the main features of a healthy diet.,normal,1017,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A healthy diet is one that provides your body with all the nutrients it needs to function properly and maintain good health. Here are some key features of a healthy diet:
+
+1. Variety: Eating a variety of foods from different food groups ensures that you get all the necessary vitamins, minerals, and other essential nutrients.
+
+2. Balance: Your diet should be balanced, meaning that it contains equal amounts of protein, carbohydrates, fats, and other macronutrients.
+
+3. Portion control: It's important not to eat too much or too little of any single nutrient in your diet. This means controlling portion sizes and being mindful of what you're eating.
+
+4. Whole foods: Try to include whole foods like fruits, vegetables, grains, lean proteins, and healthy fats in your diet instead of processed foods.
+
+5. Limit sugar and salt: Excessive intake of added sugars and sodium can lead to various health problems such as obesity, high blood pressure, diabetes, and heart disease.
+
+6. Hy",199,99,0.49748743718592964,-0.07088812050083358,0.5015969913417822,False,True,60.5,,
+2026-10-30T18:41:52+00:00,17,Describe the main features of a healthy diet.,watermarked,1017,200,0.7,0.9,0.5,2.0,lefthash,3.0,"A healthy diet is one that provides your body with all the nutrients it needs to function properly and maintain good health. Here are some key features of a healthy diet:
+
+1. Variety: Eating a variety of foods from different food groups ensures that you get all the necessary vitamins, minerals, and other essential nutrients.
+
+2. Balance: Your meals should be balanced in terms of protein, carbohydrates, and fats, as well as calories, fiber, and water.
+
+3. Moderation: It's important to eat in moderation, rather than overeating or under-eating. This means eating the right amount of each food group at the appropriate times throughout the day.
+
+4. Whole Foods: Try to eat whole foods like fruits, vegetables, grains, proteins, and healthy fats instead of processed and refined foods.
+
+5. Limiting Saturated Fat and Sodium: Too much saturated fat and sodium can increase your risk for heart disease and other health problems.
+
+6. Drinking Water: Drink plenty of water throughout the day",199,117,0.5879396984924623,2.4810842175291756,0.009931559746367169,False,False,45.2,,
+2026-10-30T18:42:35+00:00,18,Explain why the sky appears blue.,normal,1018,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The sky appears blue to us because of a phenomenon called Rayleigh scattering. This is an optical effect that occurs when light travels through the Earth's atmosphere and interacts with gas molecules, including nitrogen and oxygen.
+
+When sunlight enters our atmosphere, it collides with these molecules in the air. The shorter wavelengths (blue and violet) of light are scattered more easily than the longer wavelengths (red, orange, yellow, green, etc.). This means that the blue and violet light is scattered all around us from every direction, giving the sky its characteristic blue color.
+
+However, this same effect also causes the sun to appear bluish during sunrise and sunset. As the sun gets lower in the sky, the angle at which the light has to pass through the atmosphere increases, leading to more scattering of the shorter wavelength colors like blue and violet. This makes the sun look slightly reddish or orangey in appearance.
+
+It's worth noting that other factors can also affect how we perceive the sky, such as atmospheric conditions",199,93,0.46733668341708545,-0.9215455665108366,0.7088143151166446,False,True,43.3,,
+2026-10-30T18:43:20+00:00,18,Explain why the sky appears blue.,watermarked,1018,200,0.7,0.9,0.5,2.0,lefthash,3.0,"The phenomenon of the sky appearing blue is due to the interaction between light and Earth's atmosphere. Here's how it works:
+
+1. Sunlight: The sunlight that reaches our eyes consists of all colors in the visible spectrum - red, orange, yellow, green, blue, indigo, and violet.
+
+2. Rayleigh scattering: When sunlight travels through the Earth's atmosphere, it encounters molecules like nitrogen and oxygen. These molecules scatter (or bounce off) the shorter wavelengths of light more easily than they do the longer wavelengths. This effect is called Rayleigh scattering.
+
+3. Blue light scattered most: Among the different colors of light, blue has the shortest wavelength. As a result, when sunlight passes through the atmosphere, the blue light is scattered more than any other color because it scatters more efficiently.
+
+4. Scattering direction: Most of this scattered blue light comes from the upper part of the sky. Because the sun itself is relatively close to us on average, we see only about one",199,118,0.592964824120603,2.622860458530843,0.006265434602493736,False,False,44.5,,
+2026-10-30T18:44:03+00:00,19,Describe how a city could reduce traffic congestion.,normal,1019,200,0.7,0.9,0.5,2.0,lefthash,3.0,"There are several ways that a city can reduce traffic congestion:
+
+1. Encourage public transportation: Investing in and expanding the public transportation system such as buses, trains, and subways can help to reduce car use and increase the number of people who choose to take these alternative modes of transport.
+
+2. Implement traffic management strategies: Traffic light timing, lane control, and other traffic management strategies can be used to regulate traffic flow and reduce congestion. 
+
+3. Increase parking availability: Providing more parking spaces or encouraging the use of car-sharing services can also help to reduce traffic congestion.
+
+4. Encourage carpooling: Offering incentives for people to carpool with others can encourage more efficient use of vehicles and reduce traffic congestion.
+
+5. Promote telecommuting: By allowing employees to work from home on certain days or hours, it reduces the need for them to commute to their workplace and helps to decrease traffic congestion.
+
+6. Improve infrastructure: Improving roads and highways can help to improve traffic flow and",199,108,0.542713567839196,1.205098048514171,0.19835727741227638,False,True,43.5,,
+2026-10-30T18:44:47+00:00,19,Describe how a city could reduce traffic congestion.,watermarked,1019,200,0.7,0.9,0.5,2.0,lefthash,3.0,"There are several ways that a city can reduce traffic congestion:
+
+1. Implementing public transportation: Investing in efficient and reliable public transportation systems such as buses, trains, and trams can help to reduce the number of cars on the road.
+
+2. Encouraging carpooling and ride-sharing: Programs that incentivize people to share rides with each other can help to reduce the number of cars on the road.
+
+3. Promoting cycling and walking: Creating safe bike lanes and pedestrian paths can encourage more people to use these modes of transportation instead of driving.
+
+4. Implementing smart traffic management: Using technology such as sensors and cameras to monitor traffic flow and adjust traffic lights and signals accordingly can help to reduce congestion.
+
+5. Developing alternative routes for drivers: By creating new roads or rerouting existing ones, cities can create alternate routes for drivers to take when they encounter heavy traffic.
+
+6. Restricting vehicle access during peak hours: Implementing time-based restrictions on vehicle access during busy times,",199,123,0.6180904522613065,3.3317416635391788,0.00042647936973816414,True,True,44.1,,

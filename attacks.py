@@ -367,14 +367,51 @@ def _translate(sentences: list[str], model_name: str, device: str,
     return out
 
 
+# List markers at the start of a line: "1. ", "2) ", "- ", "* ", "• ".
+_LIST_MARKER_RE = re.compile(r"^\s*((?:\d+[.)]|[-*•])\s+)")
+
+
+def _split_sentences(line: str) -> list[str]:
+    """
+    Split a line into sentences, never leaving a fragment with fewer than two
+    words on its own.
+
+    Why: MarianMT hallucinates on tiny inputs. A bare "5." (from a numbered
+    list) was "translated" into made-up EU-regulation boilerplate, which
+    padded the output and unfairly diluted the watermark. Short fragments are
+    therefore glued to the next sentence.
+    """
+    parts = [p for p in _SENTENCE_SPLIT_RE.split(line.strip()) if p]
+    merged: list[str] = []
+    carry = ""
+    for p in parts:
+        piece = f"{carry} {p}".strip() if carry else p
+        if len(re.findall(r"[A-Za-zÀ-ÿ]+", piece)) < 2:
+            carry = piece  # too short to translate alone; attach to the next one
+        else:
+            merged.append(piece)
+            carry = ""
+    if carry:
+        if merged:
+            merged[-1] = f"{merged[-1]} {carry}"
+        else:
+            merged.append(carry)
+    return merged
+
+
 def _translate_preserving_lines(text: str, model_name: str, device: str, num_beams: int) -> str:
-    """Translate line by line (keeps paragraph breaks), sentence by sentence."""
-    lines = text.split("\n")
+    """Translate line by line (keeps paragraph breaks and list markers),
+    sentence by sentence. List markers are kept out of the translation."""
+    markers, per_line = [], []
+    for line in text.split("\n"):
+        m = _LIST_MARKER_RE.match(line)
+        markers.append(m.group(1) if m else "")
+        per_line.append(_split_sentences(line[m.end():] if m else line))
     # Collect all sentences so they are translated in batches.
-    per_line = [[s for s in _SENTENCE_SPLIT_RE.split(line.strip()) if s] for line in lines]
     flat = [s for sents in per_line for s in sents]
     translated = iter(_translate(flat, model_name, device, num_beams)) if flat else iter([])
-    return "\n".join(" ".join(next(translated) for _ in sents) for sents in per_line)
+    return "\n".join(marker + " ".join(next(translated) for _ in sents)
+                     for marker, sents in zip(markers, per_line))
 
 
 def translation_round_trip(text: str, pivot: str = "de", device: str | None = None,
@@ -404,9 +441,13 @@ def translation_round_trip(text: str, pivot: str = "de", device: str | None = No
     warnings: list[str] = []
     if _normalise(result) == _normalise(text):
         warnings.append("round-trip output is identical to the input")
+    # A round trip should keep roughly the same length. Much longer output
+    # usually means the translator invented text; much shorter means it dropped some.
     ratio = len(result.split()) / max(len(text.split()), 1)
-    if ratio < 0.5 or ratio > 2.0:
-        warnings.append(f"word-count ratio {ratio:.2f} is outside 0.5-2.0; translation may have dropped text")
+    if ratio > 1.5:
+        warnings.append(f"word-count ratio {ratio:.2f} > 1.5; translator may have hallucinated extra text")
+    elif ratio < 0.5:
+        warnings.append(f"word-count ratio {ratio:.2f} < 0.5; translation may have dropped text")
 
     params = {"forward_model": forward, "backward_model": backward, "pivot": pivot,
               "num_beams": num_beams, "device": device, "pivot_text": pivot_text}

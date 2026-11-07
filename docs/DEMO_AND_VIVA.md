@@ -17,7 +17,27 @@ Before the demo: activate the venv, run `streamlit run app.py`, and press
    text, false-positive rate on normal text, and detection after each attack.
 5. **History** — every run above is saved; download the CSV.
 
-## 2. Likely viva questions
+## 2. Final results (20 prompts, CPU run)
+
+| Measure | Result |
+|---|---|
+| Normal texts wrongly flagged (false positive rate) | 0 of 20 (0%) |
+| Watermarked texts detected (true positive rate) | 12 of 20 (60%) |
+| Mean z: watermarked / normal | 3.45 / 0.11 |
+
+| Attack (on the 12 detected texts) | Still detected | Mean z after (4.06 before) | Meaning similarity |
+|---|---|---|---|
+| Paraphrase | 0 of 12 | 0.57 | 0.89 |
+| Synonym (30%) | 7 of 12 | 3.52 | 0.94 |
+| Translation EN-DE-EN | 6 of 12 | 3.05 | 0.97 |
+| Combined | 1 of 12 | 0.54 | 0.84 |
+
+**Bug found and fixed:** the first translation run hallucinated EU-regulation text
+for bare list numbers ("5."), doubling 12 outputs and making translation look
+stronger (25% still detected). After the fix the correct figure is 50%. The old
+rows are kept in `experiments/archive/`.
+
+## 3. Likely viva questions
 
 **What is the KGW watermark?**
 At each generation step, the previous token seeds a random split of the
@@ -67,10 +87,11 @@ If the original watermarked text was not detected (z < 3), an attack cannot
 "remove" a watermark that wasn't detected. Those samples are excluded from
 attack success rates instead of being counted as successes.
 
-## 3. Limitations (be upfront about these)
+## 4. Limitations (be upfront about these)
 
 - **Small dataset.** 20 prompts, one sample each. Rates have wide uncertainty;
-  for example, 15/20 = 75%, but the true rate could plausibly be 55–90%.
+  for example, 12/20 = 60%, but the true rate could plausibly be 39–78%.
+- **Every text hit the 200-token limit** (199 tokens scored), so length effects were not studied.
 - **One model, one watermark setting.** Results are for Qwen2.5-1.5B with
   KGW (ratio 0.5, bias 2.0, lefthash). Other models or a higher bias would differ.
 - **The attacker uses the same model as the generator** (Qwen, watermark off)
