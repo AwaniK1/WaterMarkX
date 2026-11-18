@@ -1,23 +1,60 @@
+
+import logo from "../assets/LogoWatermarkX.png";
+
 export const Sidebar = () => {
-    return (
-        <div className="flex flex-col m-3 w-60 p-4 rounded-3xl border-2 border-cyan-500/60 bg-black gap-4 shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+  const items = [
+    { name: "Dashboard", icon: "▦" },
+    { name: "Generate", icon: "✳" },
+    { name: "Attacks", icon: "⌁" },
+    { name: "Reports", icon: "▤" },
+  ];
 
-            <button className="cursor-pointer text-slate-100 text-left px-3 py-2 rounded-xl border-2 border-transparent hover:border-cyan-500/70 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition">
-                Dashboard
-            </button>
+  return (
+    <aside className="sidebar">
 
-            <button className="cursor-pointer text-slate-100 text-left px-3 py-2 rounded-xl border-2 border-transparent hover:border-cyan-500/70 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition">
-                Generate
-            </button>
+      <div className="sidebar-brand">
+        <img src={logo} alt="WatermarkX logo" />
 
-            <button className="cursor-pointer text-slate-100 text-left px-3 py-2 rounded-xl border-2 border-transparent hover:border-cyan-500/70 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition">
-                Attacks
-            </button>
-
-            <button className="cursor-pointer text-slate-100 text-left px-3 py-2 rounded-xl border-2 border-transparent hover:border-cyan-500/70 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition">
-                Reports
-            </button>
-
+        <div>
+          <h1>WatermarkX</h1>
+          <p>LLM WATERMARK ROBUSTNESS</p>
         </div>
-    );
+      </div>
+
+      <div className="sidebar-menu">
+        <p className="menu-label">WORKSPACE</p>
+
+        <nav>
+          {items.map((item) => (
+            <button
+              key={item.name}
+              className={`sidebar-link ${
+                item.name === "Generate" ? "selected" : ""
+              }`}
+              type="button"
+            >
+              <span className="sidebar-icon">{item.icon}</span>
+              <span>{item.name}</span>
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      <div className="sidebar-footer">
+        <div className="footer-line"></div>
+
+        <span className="footer-label">CURRENT PROJECT</span>
+        <p>WatermarkX</p>
+        <span className="footer-description">
+          LLM Watermark Analysis
+        </span>
+
+        <div className="version-label">
+          <span>VERSION</span>
+          <span>1.0.0</span>
+        </div>
+      </div>
+
+    </aside>
+  );
 };

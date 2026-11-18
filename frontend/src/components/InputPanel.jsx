@@ -1,164 +1,271 @@
+
 import { useState, useRef } from "react";
 
 export const InputPanel = () => {
-    const [prompt, setPrompt] = useState("");
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [percent, setPercent] = useState(0);
-    const [liveText, setLiveText] = useState("");
-    const [stopped, setStopped] = useState(false);
-    const [copied, setCopied] = useState(false);
-    const [pasted, setPasted] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [percent, setPercent] = useState(0);
+  const [liveText, setLiveText] = useState("");
+  const [stopped, setStopped] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [pasted, setPasted] = useState(false);
+  const [error, setError] = useState("");
 
-    const controllerRef = useRef(null);
+  const controllerRef = useRef(null);
 
-    const handleSubmit = async () => {
-        setIsGenerating(true);
-        setPercent(0);
-        setLiveText("");
-        setStopped(false);
+  const handleSubmit = async () => {
+    if (!prompt.trim() || isGenerating) return;
 
-        const controller = new AbortController();
-        controllerRef.current = controller;
+    setIsGenerating(true);
+    setPercent(0);
+    setLiveText("");
+    setStopped(false);
+    setError("");
 
-        try {
-            const response = await fetch("http://127.0.0.1:8000/generate-stream", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ prompt }),
-                signal: controller.signal,
-            });
+    const controller = new AbortController();
+    controllerRef.current = controller;
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            let buffer = "";
-
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) break;
-
-                buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split("\n");
-                buffer = lines.pop();
-
-                for (const line of lines) {
-                    if (!line.trim()) continue;
-                    const message = JSON.parse(line);
-                    setPercent(message.percent);
-                    setLiveText(message.text_so_far);
-                }
-            }
-        } catch (err) {
-            if (err.name === "AbortError") {
-                setStopped(true);
-            } else {
-                console.error(err);
-            }
-        } finally {
-            setIsGenerating(false);
-            controllerRef.current = null;
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/generate-stream",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt }),
+          signal: controller.signal,
         }
-    };
+      );
 
-    const handleStop = () => {
-        if (controllerRef.current) {
-            controllerRef.current.abort();
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      if (!response.body) {
+        throw new Error("Streaming response unavailable");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      let buffer = "";
+
+      const processLine = (line) => {
+        if (!line.trim()) return;
+
+        const message = JSON.parse(line);
+
+        if (typeof message.percent === "number") {
+          setPercent(message.percent);
         }
-    };
 
-    const handlePaste = async () => {
-        try {
-            const clipboardText = await navigator.clipboard.readText();
-            setPrompt(clipboardText);
-            setPasted(true);
-            setTimeout(() => setPasted(false), 1500);
-        } catch (err) {
-            console.error("Clipboard read failed:", err);
+        if (typeof message.text_so_far === "string") {
+          setLiveText(message.text_so_far);
         }
-    };
+      };
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(liveText);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-        } catch (err) {
-            console.error("Clipboard write failed:", err);
+      while (true) {
+        const { value, done } = await reader.read();
+
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          processLine(line);
         }
-    };
+      }
 
-    return (
-        <div className="flex-1 flex flex-col gap-5 m-3 p-6 rounded-3xl border-2 border-cyan-500/60 bg-black shadow-[0_0_25px_rgba(6,182,212,0.15)]">
-            <div>
-                <h2 className="text-2xl font-bold text-slate-100">
-                    LLM Input Prompt
-                </h2>
-                <p className="mt-1 text-sm text-cyan-300">
-                    Paste or type the text you want WatermarkX to generate and analyze.
-                </p>
-            </div>
+      buffer += decoder.decode();
 
-            <div className="relative">
-                <textarea
-                    placeholder="Enter your prompt here..."
-                    className="h-64 w-full resize-none rounded-2xl border border-cyan-500/40 bg-black p-4 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.35)] focus:outline-none disabled:opacity-50 transition"
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    disabled={isGenerating}
-                />
-                <button
-                    onClick={handlePaste}
-                    disabled={isGenerating}
-                    className="absolute top-3 right-3 cursor-pointer rounded-lg border border-cyan-500/40 bg-black px-3 py-1 text-xs text-cyan-300 hover:border-cyan-400 hover:shadow-[0_0_10px_rgba(6,182,212,0.5)] disabled:opacity-50 transition"
-                >
-                    {pasted ? "Pasted!" : "Paste"}
-                </button>
-            </div>
+      if (buffer.trim()) {
+        processLine(buffer);
+      }
 
-            <div className="flex gap-3 self-end">
-                {isGenerating && (
-                    <button
-                        onClick={handleStop}
-                        className="w-32 cursor-pointer rounded-2xl border-2 border-red-500 bg-black py-3 text-lg font-semibold text-red-400 transition hover:shadow-[0_0_20px_rgba(239,68,68,0.5)]"
-                    >
-                        Stop
-                    </button>
-                )}
-                <button
-                    onClick={handleSubmit}
-                    disabled={isGenerating || !prompt}
-                    className="w-52 cursor-pointer rounded-2xl border-2 border-cyan-500/70 bg-black py-3 text-lg font-semibold text-cyan-300 transition hover:shadow-[0_0_20px_rgba(6,182,212,0.6)] disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                    {isGenerating ? "Generating..." : "Submit Prompt"}
-                </button>
-            </div>
+    } catch (err) {
+      if (err.name === "AbortError") {
+        setStopped(true);
+      } else {
+        console.error(err);
+        setError("Unable to generate text. Please check your backend.");
+      }
+    } finally {
+      setIsGenerating(false);
+      controllerRef.current = null;
+    }
+  };
 
-            {(isGenerating || liveText) && (
-                <div className="mt-2">
-                    <div className="flex justify-between text-sm text-cyan-300 mb-1">
-                        <span>{stopped ? "Stopped" : isGenerating ? "Generating..." : "Done"}</span>
-                        <span>{percent}%</span>
-                    </div>
-                    <div className="w-full h-3 rounded-full bg-black border border-cyan-500/30 overflow-hidden">
-                        <div
-                            className="h-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)] transition-all duration-150"
-                            style={{ width: `${percent}%` }}
-                        />
-                    </div>
-                    <div className="relative mt-4">
-                        <p className="rounded-xl border border-cyan-500/30 bg-black p-3 pr-16 text-slate-300 text-sm whitespace-pre-wrap min-h-16">
-                            {liveText}
-                        </p>
-                        {liveText && (
-                            <button
-                                onClick={handleCopy}
-                                className="absolute top-3 right-3 cursor-pointer rounded-lg border border-cyan-500/40 bg-black px-3 py-1 text-xs text-cyan-300 hover:border-cyan-400 hover:shadow-[0_0_10px_rgba(6,182,212,0.5)] transition"
-                            >
-                                {copied ? "Copied!" : "Copy"}
-                            </button>
-                        )}
-                    </div>
-                </div>
-            )}
+  const handleStop = () => {
+    controllerRef.current?.abort();
+  };
+
+  const handlePaste = async () => {
+    try {
+      const clipboardText = await navigator.clipboard.readText();
+
+      setPrompt(clipboardText);
+      setPasted(true);
+
+      setTimeout(() => setPasted(false), 1500);
+    } catch (err) {
+      console.error("Clipboard read failed:", err);
+      setError("Unable to access clipboard. Please paste manually.");
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(liveText);
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Clipboard write failed:", err);
+      setError("Unable to copy the generated text.");
+    }
+  };
+
+  return (
+    <div className="input-page">
+
+      <div className="page-heading">
+        <div>
+          <span className="page-eyebrow">TEXT GENERATION</span>
+
+          <h2>Generate text</h2>
+
+          <p>
+            Enter a prompt to generate text and begin
+            the watermarking process.
+          </p>
         </div>
-    );
+      </div>
+
+      <section className="prompt-section">
+
+        <div className="section-heading">
+          <div>
+            <h3>Input prompt</h3>
+            <p>What would you like the language model to generate?</p>
+          </div>
+
+          <span className="character-count">
+            {prompt.length} characters
+          </span>
+        </div>
+
+        <div className="editor">
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Start typing your prompt..."
+            disabled={isGenerating}
+          />
+
+          <div className="editor-bottom">
+            <span>Plain text</span>
+
+            <button
+              type="button"
+              onClick={handlePaste}
+              disabled={isGenerating}
+            >
+              {pasted ? "Pasted ✓" : "Paste"}
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <p className="error-message">{error}</p>
+        )}
+
+        <div className="action-row">
+          <span className="helper-text">
+            Make your prompt clear and descriptive.
+          </span>
+
+          <div className="action-buttons">
+
+            {isGenerating && (
+              <button
+                className="stop-button"
+                onClick={handleStop}
+              >
+                Stop
+              </button>
+            )}
+
+            <button
+              className="generate-button"
+              onClick={handleSubmit}
+              disabled={isGenerating || !prompt.trim()}
+            >
+              {isGenerating ? "Generating..." : "Generate text"}
+              {!isGenerating && <span>→</span>}
+            </button>
+
+          </div>
+        </div>
+
+      </section>
+
+      {(isGenerating || liveText) && (
+        <section className="output-section">
+
+          <div className="output-heading">
+            <div>
+              <span className="output-label">MODEL RESPONSE</span>
+              <h3>Generated output</h3>
+            </div>
+
+            <span className={`output-status ${
+              stopped ? "stopped" :
+              isGenerating ? "running" : "completed"
+            }`}>
+              <span className="status-dot"></span>
+              {stopped
+                ? "Stopped"
+                : isGenerating
+                ? "Generating"
+                : "Completed"}
+            </span>
+          </div>
+
+          <div className="progress-info">
+            <span>Progress</span>
+            <span>{percent}%</span>
+          </div>
+
+          <div className="progress-track">
+            <div
+              className="progress-fill"
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+
+          <div className="output-box">
+            <div className="output-box-header">
+              <span>OUTPUT</span>
+
+              {liveText && (
+                <button onClick={handleCopy}>
+                  {copied ? "Copied ✓" : "Copy"}
+                </button>
+              )}
+            </div>
+
+            <div className="output-content">
+              {liveText || "Waiting for model response..."}
+            </div>
+          </div>
+
+        </section>
+      )}
+
+    </div>
+  );
 };
